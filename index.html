@@ -1,1 +1,120 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta name="generator" content="Hugo 0.57.2" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TTL Violation</title>
+    <base href="">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
+
+    <noscript>
+      <link rel="stylesheet" type="text/css" href="./css/noscript.css">
+    </noscript>
+  </head>
+  <body class="container">
+    <nav class="container-fluid navbar navbar-default">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar">&nbsp;</span>
+    <span class="icon-bar">&nbsp;</span>
+    <span class="icon-bar">&nbsp;</span>
+    </button>
+    <a class="navbar-brand" href="">TTL violation study</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse">
+    <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/archive/">Archive</a></li>
+        <li><a href="/analysis-code/">Analysis Code</a></li>
+        <li><a href="/contact/">Contact</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    </ul>
+  </div>
+</nav>
+
+    <noscript>
+  <div class="alert alert-warning" role="alert">
+    <strong>JavaScript disabled!</strong> This page requires JavaScript, you might not be able to access all content with JavaScript disabled.
+  </div>
+</noscript>
+
+    <main class="container-fluid">
+
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101208253);</script>
+<script async src="//static.getclicky.com/js"></script>
+
+<div class="jumbotron">
+      <div class="container">
+          <h2 align='right'>Measuring TTL Violation of DNS Resolvers at scale</h2>
+        <h3 align='right' style="color: darkred">
+            Protick Bhowmick<sup>†</sup>,
+            Md. Ishtiaq Ashiq<sup>†</sup>,
+            Casey Deccio<sup>*</sup>,
+            Taejoong Chung<sup>†</sup>
+        </h3>
+        <h5 align='right'>
+            <sup>†</sup>Virginia Tech,
+            <sup>*</sup>Brigham Young University
+        </h5>
+      </div>
+    </div>
+
+<h1 id="about-this-study">About This Study</h1>
+
+<p>The Domain Name System (DNS) provides a scalable name resolution service. It uses extensive caching to improve its resiliency and performance; every DNS record contains a time-to-live (TTL) value, which specifies how long a DNS record can be cached before being discarded. Since the TTL can play an important role in both DNS security (e.g., determining a DNSSEC-signed response’s caching period) and performance (e.g., responsiveness of CDN-controlled domains), it is crucial to measure and understand how resolvers violate TTL. Unfortunately, measuring how DNS resolvers manage TTL around the world remains difficult since it usually requires having the cooperation of many nodes spread across the globe. In this paper, we present a methodology that measures TTL-violating resolvers using an HTTP/S proxy service called BrightData, which allows us to cover more than 27 K resolvers in 9.5 K ASes. Out of the 8,524 resolvers that we could mea- sure through at least five different vantage points, we find that 8.74% of them extend the TTL arbitrarily, which potentially can degrade the performance of at least 38% of the popular websites that use CDNs. We also report that 44.1% of DNSSEC-validating resolvers incorrectly serve DNSSEC-signed responses from the cache even after their RRSIGs are expired.</p>
+
+<p><b><center> This paper will be published at PAM&rsquo;2023 (Passive and Active Measurement Conference)</center></b></p>
+
+<h1 id="datasets-tools-and-source-codes">Datasets and source codes</h1>
+
+<p>To foster reproducibility and stimulate further research, we publicly release the followings:
+(Please cite this study when using the datasets.)</p>
+
+<h2 id="1-datasets">1. Datasets</h2>
+
+<ul>
+<li>Bind logs</li>
+<li>Apache logs</li>
+<li>Luminati Logs</li>
+</ul>
+
+<p>For these two datasets, <a href="/archive">Archive</a> describes the datasets</p>
+
+<h2 id="2-analysis-and-plotting-source-codes">3. Analysis codes</h2>
+
+<p>For reproducibility of our paper, we share the analysis codes <a href="/analysis-code">here</a>.</p>
+
+    </main>
+    <footer class="container-fluid page-footer" style="display: flex; align-items: center">
+</footer>
+
+    
+<script type="text/javascript">
+var sc_project=11603023; 
+var sc_invisible=1; 
+var sc_security="a906280a"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11603023/0/a906280a/1/" alt="Web
+Analytics"></a></div></noscript>
+
+    <script src="js/jquery.1.12.4.min.js"></script>
+    
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

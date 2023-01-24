@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+    <title>Analysis Code</title>
+    <base href="">
+    
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700" rel="stylesheet">
+    
+    
+    
+    
+    
+
+    <noscript>
+      <link rel="stylesheet" type="text/css" href="./css/noscript.css">
+    </noscript>
+  </head>
+  <body class="container">
+    <nav class="container-fluid navbar navbar-default">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar">&nbsp;</span>
+    <span class="icon-bar">&nbsp;</span>
+    <span class="icon-bar">&nbsp;</span>
+    </button>
+    <a class="navbar-brand" href="#">TTL violation study</a>
+  </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse">
+    <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/archive/">Archive</a></li>
+        <li class="active"><a href="/analysis-code/">Analysis Code</a></li>
+        <li><a href="/contact/">Contact</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    </ul>
+  </div>
+</nav>
+
+    
+
+    
+    <noscript>
+  <div class="alert alert-warning" role="alert">
+    <strong>JavaScript disabled!</strong> This page requires JavaScript, you might not be able to access all content with JavaScript disabled.
+  </div>
+</noscript>
+
+    <main class="container-fluid">
+      
+
+<h1 id="rpki-analysis-code-for-reproducibility-of-the-imc-19-paper">Analysis code</h1>
+
+<style>
+table, th { text-align: center;
+}
+</style>
+
+<h2 id="preliminary">Preliminary</h2>
+
+<ol>
+<li><p>To analyze TTL violating resolvers, you first need to have three datasets in <a href="/archive">Archive</a> </p></li>
+
+<li><p>We use the following dataset to find the ISP and country information from the ASN from <a href="http://www.caida.org/home/">CAIDA</a>: <a href="http://data.caida.org/datasets/as-organizations">as-organization</a>, also we use the python <a href="http://www.caida.org/home/">pyasn</a> module to find the owner ASN of IP prefixes</p></li>
+
+<li><p>The analysis scripts are in written in python 3</p></li>
+</ol>
+
+<h2 id="summary-of-source-codes">Source codes</h2>
+
+<p>Here, we provide following source codes. The instruction and usage of the source codes are explained below.</p>
+
+
+<table class="table table-dark table-striped table-bordered">
+<thead>
+<tr>
+<th>filename</th>
+<th>Download</th>
+
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>log_analyzer.py</code></td>
+<td><a href="/codes/analysis/analysis-codes/log_analyzer.py">link</a></td>
+
+</tr>
+
+<tr>
+<td><code>meta_analyzer.py</code></td>
+<td><a href="/codes/analysis/analysis-codes/meta_analyzer.py">link</a></td>
+
+</tr>
+
+</tbody>
+</table>
+<style>
+table, th, td {
+  text-align: center;
+}
+</style>
+
+
+<h2 id="Running instruction of source codes"></h2>
+
+<h3 id="log-analysis-code-desc"><code>log_analyzer.py</code></h3>
+
+<p>First, set the following paths: <code>bind_file_directory</code>
+    pointing to the bind dataset, <code>main_file_base_directory</code>
+        pointing to the luminati dataset and <code>apache_file_directory</code>
+        pointing to the apache dataset. This script mainly analyzes the raw logs from our bind and apache webserver
+        as well as the response we received from our Luminati exit nodes to create the mapping between resolver IPs
+        and exit nodes as well as find out which resolvers are violating the authoritative TTL.
+        </p>
+
+<h3 id="meta-analysis-code-desc"><code>meta_analyzer.py</code></h3>
+
+<p>This script works on further analyzing the output files of <code>log_analyzer.py</code> to find out
+    numbers and results that we have used in the result section as well as different figures in the paper.
+        </p>
+
+
+<h2 id="reproducing-the-figures">Function description</h2>
+
+
+Here we give brief descriptions of the functions used to generate the result:
+
+<table class="table table-dark table-striped table-bordered">
+<thead>
+<tr>
+<th>file</th>
+<th>function</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>meta_analyzer.py</td>
+<td>preprocess_all_resolvers</td>
+<td>get resolver to ASN, Organization, Country mapping</td>
+</tr>
+
+
+<tr>
+<td>meta_analyzer.py</td>
+<td>table_maker_global, table_maker_local</td>
+<td>Group each organization/ISP's resolver IPs, exit nodes and <br> TTL-dishonoring  fraction of exit nodes. Used to generate data for Table 3</td>
+</tr>
+
+<tr>
+<td>meta_analyzer.py</td>
+<td>get_client_to_country_distro</td>
+<td>Group each country by percentage of exit nodes</td>
+</tr>
+
+<tr>
+<td>meta_analyzer.py</td>
+<td>geographic_dishonoring_resolver_distro</td>
+<td>Group each country by percentage of TTL dishonoring resolvers</td>
+</tr>
+
+<tr>
+<td>meta_analyzer.py</td>
+<td>cdf_data_maker</td>
+<td>For each resolver, find out ratio of TTL-dishonoring exitnodes <br> for each TTL. Used for generating the CDF in Figure 3</td>
+</tr>
+
+
+</tbody>
+</table>
+<style>
+table, th, td {
+  text-align: center;
+}
+</style>
+
+
+    </main>
+    <footer class="container-fluid page-footer" style="display: flex; align-items: center">
+</footer>
+
+    
+<script type="text/javascript">
+var sc_project=11603023; 
+var sc_invisible=1; 
+var sc_security="a906280a"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="http://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="//c.statcounter.com/11603023/0/a906280a/1/" alt="Web
+Analytics"></a></div></noscript>
+
+
+    
+    <script src="js/jquery.1.12.4.min.js"></script>
+    
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
